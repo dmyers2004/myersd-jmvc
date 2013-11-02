@@ -132,7 +132,7 @@ jQuery.fn.extend({
 		/* if event is valid and function is valid set the event and function */
 		if (event && func) {
 		  /* SET event and function */
-		  jQuery(this).on(event,function(evnt) {
+		  jQuery(document).on(event,jQuery(this).selector,function(evnt) {
 		    if (mvc.config.preventDefault) {
 		      evnt.preventDefault();
 		    }
