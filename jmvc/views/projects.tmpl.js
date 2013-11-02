@@ -1,0 +1,1 @@
+<option value="${smp_num}">${smp_num} ${short_d}</option>

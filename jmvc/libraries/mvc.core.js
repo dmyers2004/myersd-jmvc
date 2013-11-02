@@ -44,13 +44,13 @@ mvc.bootstrap = function() {
   	/* load the controller */
   	mvc.load.controller(mvc.folders.current_controller,mvc.controller,mvc.method);
   }
-  
+
   /* send out the mvc object to the console */
   mvc.log(mvc);
 
 	/* fire off the finished event */
   jQuery.holdReady(false);
-  
+
 };
 
 /*
@@ -60,9 +60,9 @@ will also run scripts mvc_pre_merge and mvc_post_merge
 if sent in
 */
 mvc.merge = function (json) {
-  mvc.event('mvc.merge.init');        
+  mvc.event('mvc.merge.init');
   if (json) {
-    mvc.event('mvc.merge.pre');        
+    mvc.event('mvc.merge.pre');
     mvc.exec(json.mvc_pre_merge);
     for (property in json) { /* we are only using strings or numbers */
       if (typeof(json[property]) === 'string' || typeof(json[property]) === 'number' || typeof(json[property]) === 'boolean') {
@@ -100,7 +100,7 @@ mvc.merge = function (json) {
 
     }
     mvc.exec(json.mvc_post_merge);
-    mvc.event('mvc.merge.post');        
+    mvc.event('mvc.merge.post');
   }
 };
 
@@ -122,7 +122,7 @@ mvc.exec = function (code) {
 client based redirect
 */
 mvc.redirect = function (url) {
-  mvc.event('mvc.redirect.pre');        
+  mvc.event('mvc.redirect.pre');
   window.location.replace(url);
 };
 
@@ -131,34 +131,33 @@ MVC Ajax
 $.mvcAjax({});
 */
 mvc.request = function(settings) {
-  mvc.event('mvc.request.pre');        
+  mvc.event('mvc.request.pre');
 
   settings = settings || {};
- 
+
   /* clear errors an responds */
   mvc.ajax.responds = undefined;
   mvc.ajax.jqxhr = undefined;
   mvc.ajax.textstatus = undefined;
   mvc.ajax.errorthrown = undefined;
- 
+
   /* setup a few defaults in here not in the config this can be overridden via settings */
   mvc.ajax.options.success = function(responds) {
     mvc.ajax.responds = responds;
   };
- 
+
   mvc.ajax.options.error = function(jqXHR, textStatus, errorThrown) {
     mvc.ajax.jqxhr = jqXHR;
     mvc.ajax.textstatus = textStatus;
     mvc.ajax.errorthrown = errorThrown;
   };
- 
+
   /* merge it all together */
   complete = jQuery.extend({},mvc.ajax.options,settings);
- 
   /* make request */
   jQuery.ajax(complete);
- 
-  mvc.event('mvc.request.post');        
+
+  mvc.event('mvc.request.post');
 
   /* return responds */
   return mvc.ajax.responds;
@@ -230,7 +229,7 @@ Wrapper to call/set jQuery document triggers.
 Used as a sudo MVC hook/event system
 */
 mvc.event = function(trigger) {
- 	jQuery(document).trigger(trigger);        
+ 	jQuery(document).trigger(trigger);
 };
 
 /* add create "namespace" */
@@ -246,10 +245,10 @@ mvc.create = {
 	  }).toUpperCase();
 	  return (prefix || '') + mvcuuid;
 	},
-	
+
 	/* add mvc.create.event('mvc.something',function) */
 	event: function(name,func) {
-		name = name + '.' + (mvc.eventid++);	
+		name = name + '.' + (mvc.eventid++);
 	  jQuery(document).on(name, func);
 	  mvc.eventstorage[mvc.eventid] = name;
 	  return mvc.eventid;
