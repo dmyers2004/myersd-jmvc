@@ -16,7 +16,7 @@ mvc.load = {
 	/* load a file */
 	file: function(file,absolute) {
 	  /* did we already load this js file? */
-	  file = (absolute) ? file : mvc.folders.include + file;
+	  file = (absolute) ? file : mvc.folders.root + file;
 	  if (!mvc.loaded[file]) {
 	  	mvc.log('Loading... ' + file + '.js');
 		  mvc.request({url: file + '.js', dataType: 'script', cache: true});
